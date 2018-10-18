@@ -1,0 +1,8 @@
+version: '3.3'
+services:
+  server:
+    build:
+      context: src
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/var/cpp/
