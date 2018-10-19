@@ -9,6 +9,7 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <time.h>
 
 int size = 1009;
 int * table = NULL;
@@ -27,10 +28,10 @@ int linearHash(int key, int i)
 
 int quadraticHash(int key, int i)
 {
-  //h(k,i) = (h'(k) + c1*i + c2*i) mod m
+  //h(k,i) = (h'(k) + c1*i + c2*i^2) mod m
   int c1 = 1;
   int c2 = 3;
-  return (key + c1*i + c2*i) % size;
+  return (key + c1*i + c2*i*i) % size;
 }
 
 int doubleHash(int key, int i)
@@ -59,6 +60,8 @@ int linearInsert(int value)
 
     i++;
   }
+
+  std::cout << "failed" << std::endl;
 
   return FAILED;
 }
@@ -199,6 +202,7 @@ void doubleDelete(int key)
 
 int main()
 {
+  srand(time(NULL));
   table = new int[size];
   int collisionSum = 0;
 
@@ -237,6 +241,7 @@ int main()
     collisionSum += collisions;
   }
 
+  std::cout << "total collision count: " << collisionSum << std::endl;
   std::cout << "avg collisions: " << collisionSum/50 << std::endl;
   table = new int[size];
   std::cout << "Quadratic" << std::endl;
@@ -276,6 +281,7 @@ int main()
     collisionSum += collisions;
   }
 
+  std::cout << "total collision count: " << collisionSum << std::endl;
   std::cout << "avg collisions: " << collisionSum/50 << std::endl;
   table = new int[size];
   std::cout << "Double" << std::endl;
@@ -315,6 +321,7 @@ int main()
     collisionSum += collisions;
   }
 
+  std::cout << "total collision count: " << collisionSum << std::endl;
   std::cout << "avg collisions: " << collisionSum/50 << std::endl;
 
   return 0;
