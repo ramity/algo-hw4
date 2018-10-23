@@ -37,7 +37,7 @@ int quadraticHash(int key, int i)
 int doubleHash(int key, int i)
 {
   //h(k,i) = (h1(k) + i*h2(k)) mod m
-  return ((key % size) + i * (1 + (key % (size - 1)))) % size;
+  return ((key) + (i * (1 + (key % (size - 1))))) % size;
 }
 
 //insert functions
@@ -205,39 +205,30 @@ int main()
   srand(time(NULL));
   table = new int[size];
   int collisionSum = 0;
+  int * numbers;
+  numbers = new int[950];
+
+  for(int z=0;z < 950;z++)
+  {
+    int randomInteger = rand() % RAND_MAX + 1;
+    numbers[z] = randomInteger;
+  }
 
   std::cout << "Linear" << std::endl;
 
   //linear
   for(int z = 0;z < 900;z++)
   {
-    int randomInteger = rand() % RAND_MAX + 1;
-    int resultKey = linearInsert(randomInteger);
-
-    //try again if insert fails
-    if(resultKey == FAILED)
-    {
-      z--;
-    }
+    int resultKey = linearInsert(numbers[z]);
   }
 
-  for(int z = 0;z < 50;z++)
+  for(int z = 900;z < 950;z++)
   {
     collisions = 0;
 
-    int randomInteger = rand() % RAND_MAX + 1;
-    int resultKey = linearInsert(randomInteger);
+    int resultKey = linearInsert(numbers[z]);
 
-    //try again if insert fails
-    if(resultKey == FAILED)
-    {
-      z--;
-    }
-    else
-    {
-      std::cout << "inserted: " << randomInteger << " with " << collisions << " collisions" << std::endl;
-    }
-
+    std::cout << "inserted: " << numbers[z] << " with " << collisions << " collisions" << std::endl;
     collisionSum += collisions;
   }
 
@@ -249,35 +240,18 @@ int main()
   //quadratic
   for(int z = 0;z < 900;z++)
   {
-    int randomInteger = rand() % RAND_MAX + 1;
-    int resultKey = quadraticInsert(randomInteger);
-
-    //try again if insert fails
-    if(resultKey == FAILED)
-    {
-      z--;
-    }
+    int resultKey = quadraticInsert(numbers[z]);
   }
 
   collisionSum = 0;
 
-  for(int z = 0;z < 50;z++)
+  for(int z = 900;z < 950;z++)
   {
     collisions = 0;
 
-    int randomInteger = rand() % RAND_MAX + 1;
-    int resultKey = quadraticInsert(randomInteger);
+    int resultKey = quadraticInsert(numbers[z]);
 
-    //try again if insert fails
-    if(resultKey == FAILED)
-    {
-      z--;
-    }
-    else
-    {
-      std::cout << "inserted: " << randomInteger << " with " << collisions << " collisions" << std::endl;
-    }
-
+    std::cout << "inserted: " << numbers[z] << " with " << collisions << " collisions" << std::endl;
     collisionSum += collisions;
   }
 
@@ -289,35 +263,18 @@ int main()
   //double
   for(int z = 0;z < 900;z++)
   {
-    int randomInteger = rand() % RAND_MAX + 1;
-    int resultKey = doubleInsert(randomInteger);
-
-    //try again if insert fails
-    if(resultKey == FAILED)
-    {
-      z--;
-    }
+    int resultKey = doubleInsert(numbers[z]);
   }
 
   collisionSum = 0;
 
-  for(int z = 0;z < 50;z++)
+  for(int z = 900;z < 950;z++)
   {
     collisions = 0;
 
-    int randomInteger = rand() % RAND_MAX + 1;
-    int resultKey = doubleInsert(randomInteger);
+    int resultKey = doubleInsert(numbers[z]);
 
-    //try again if insert fails
-    if(resultKey == FAILED)
-    {
-      z--;
-    }
-    else
-    {
-      std::cout << "inserted: " << randomInteger << " with " << collisions << " collisions" << std::endl;
-    }
-
+    std::cout << "inserted: " << numbers[z] << " with " << collisions << " collisions" << std::endl;
     collisionSum += collisions;
   }
 
